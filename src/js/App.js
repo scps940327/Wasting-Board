@@ -2,36 +2,37 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { Get } from 'react-axios';
 
 import BoardBodyData from './components/containers/BoardBodyData.js'
 
 function App() {
   return (
-      <Router>
-        <div className="px-4 py-2">
-          <div className="max_width">
-            <div className="row">
-              <div className="col-auto">
-                <img src="../../src/img/logo.png" width="150px"/>
-              </div>
-              <div className="col">
-                 <ul className="row justify-content-md-end">
-                 		<li className="col-auto px-2">
-                      <Link to="/">Home</Link>
-                    </li>
-                    <li className="col-auto px-2">
-                      <Link to={'/Login'}>Login</Link>
-                    </li>
-                 </ul>
-              </div>
+    <Router>
+      <div className="px-4 py-2">
+        <div className="max_width">
+          <div className="row">
+            <div className="col-auto">
+              <img src="../../src/img/logo.png" width="150px"/>
             </div>
-            <Switch>
-              <Route exact path='/' component={Home} />
-              <Route exact path='/Login' component={Login} />
-            </Switch>
+            <div className="col">
+               <ul className="row justify-content-md-end">
+               		<li className="col-auto px-2">
+                    <Link to="/">Home</Link>
+                  </li>
+                  <li className="col-auto px-2">
+                    <Link to={'/Login'}>Login</Link>
+                  </li>
+               </ul>
+            </div>
           </div>
+          <Switch>
+            <Route exact path='/' component={Home} />
+            <Route exact path='/Login' component={Login} />
+          </Switch>
         </div>
-      </Router>
+      </div>
+    </Router>
   ); 
 }
 
@@ -47,7 +48,7 @@ function Home(){
 function Login() {
    return (
       <div>
-         <h2>Login</h2>
+        <h2>Get Something Test</h2>
       </div>
    );
 }

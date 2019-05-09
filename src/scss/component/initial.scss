@@ -215,12 +215,16 @@ a {
     }
 }
 
-input:focus,
-textarea:focus,
-button:focus {
+input,
+textarea,
+button{
+  box-sizing: border-box;
+
+  &:focus{
     outline-style: none;
     box-shadow: none;
     border-radius: 0;
+  }
 }
 
 div {

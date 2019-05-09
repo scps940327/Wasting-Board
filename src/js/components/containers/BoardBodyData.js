@@ -1,22 +1,22 @@
 import { connect } from 'react-redux';
 import BoardBody from '../presentational/BoardBody.js';
-import { male, female } from '../../actions/action.js';
+import { refreshPost } from '../../actions/action.js';
 
 function mapStateToProps (state){
   return {
-    value: state.memberControl.name
+    data:{
+      memberName: state.Control.member.name,
+      postData: state.Control.postItem
+    }
   }
 }
 
 function mapDispatchToProps(dispatch){
   return {
-    onClickMale: () => {
-      dispatch(male());
+    refreshPost: (data) => {
+      dispatch(refreshPost(data));
     },
-    onClickFemale: () =>{
-      dispatch(female());
-    }
   }
 }
 
-export default connect(mapStateToProps)(BoardBody);
+export default connect(mapStateToProps, mapDispatchToProps)(BoardBody);

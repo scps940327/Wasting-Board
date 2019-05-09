@@ -1,3 +1,4 @@
+var webpack = require('webpack')
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
@@ -76,6 +77,10 @@ module.exports = {
       // Options similar to the same options in webpackOptions.output
       // both options are optional
       filename: "./css/style.css"
+    }),
+    new webpack.ProvidePlugin({
+        $: "jquery",
+        jQuery: "jquery"
     })
   ]
 };

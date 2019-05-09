@@ -5,42 +5,31 @@ import { PLUS, MINUS } from '../actions/action.js';
 //   value : 0
 // }
 
-const initialMemberData = {
-  name: '訪客'
+const initialData = {
+  member:{
+    name: '訪客'
+  },
+  postItem: [
+    {
+      date: new Date(),
+      text: '初始貼文'
+    },
+  ]
 }
 
-function calculator(state = initialData, action){
+function Control(state = initialData, action){
   switch(action.type){
-    case PLUS:
-        return Object.assign({},state,{
-            value : state.value + action.num
-        });
-    case MINUS:
-        return Object.assign({},state,{
-            value : state.value - action.num
-        });
+    case 'refreshPost' :
+      return Object.assign({},state,{
+        postItem: action.postArr
+      });
     default:
-        return state;
-  }
-}
-
-function memberControl(state = initialMemberData, action){
-  switch(action.type){
-    case 'female':
-        return Object.assign({},state,{
-            name: state.name + '小姐'
-        });
-    case 'male':
-        return Object.assign({},state,{
-            name: state.name + '先生'
-        });
-    default:
-        return state;
+      return state;
   }
 }
 
 const calculatorApp = combineReducers({
-  memberControl
+  Control
 });
 
 export default calculatorApp;
