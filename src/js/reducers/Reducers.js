@@ -12,7 +12,8 @@ const initialData = {
   postItem: [
     {
       date: new Date(),
-      text: '初始貼文'
+      text: '初始貼文',
+      img: ''
     },
   ]
 }
