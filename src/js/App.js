@@ -18,17 +18,17 @@ function App() {
             <div className="col">
                <ul className="row justify-content-md-end">
                		<li className="col-auto px-2">
-                    <Link to="/">Home</Link>
+                    <Link to="/Wasting-Board/">Home</Link>
                   </li>
                   <li className="col-auto px-2">
-                    <Link to={'/Login'}>Login</Link>
+                    <Link to={'/Wasting-Board/Login'}>Login</Link>
                   </li>
                </ul>
             </div>
           </div>
           <Switch>
-            <Route exact path='/' component={Home} />
-            <Route exact path='/Login' component={Login} />
+            <Route exact path='/Wasting-Board' component={Home} />
+            <Route exact path='/Wasting-Board/Login' component={Login} />
           </Switch>
         </div>
       </div>

@@ -4,7 +4,7 @@ import BoardWrapper from './BoardWrapper.js'
 import { Get } from 'react-axios';
 
 function BoardBody({data, refreshPost}){
-	const url = 'https://script.google.com/macros/s/AKfycbwL7q7ayTChs2w2fg3ld8tenRmTllXWsuNEv_VF9srrOlVBV9Ve/exec';
+	const url = 'https://script.google.com/macros/s/AKfycbyoOCkTJxCNBGyCqd1NZEZalflUt6jmAahjPtJp-OJJ_gApOGA/exec';
 	useEffect(() => {
    	getData();
   }, []);
@@ -40,7 +40,6 @@ function BoardBody({data, refreshPost}){
 				postImgItemData = postImgPreviewDiv.src.replace(',', '%');
 			}
 
-			//var data = [[new Date(), postTextItem.value]];
 			var newPostParameter = {
 		      requestAction: 'newPost',
 		      dataTime: new Date(),
@@ -50,16 +49,28 @@ function BoardBody({data, refreshPost}){
 		      row: 1,
 		      column: 3
 	    }
-	    console.log('send: ' + data.toString());
 
-	    $.get(url, newPostParameter, function(data) {
-	    	console.log('get data');
-	    	console.log(data);
-			  refreshPost(data.reverse());
-			  postText.value = '';
-			  postImgItem.value = '';
-			  postImgPreviewDiv.src = '';
-			  //console.log('output: '+ JSON.stringify(outputArr));
+	  //   $.get(url, newPostParameter, function(data) {
+	  //   	console.log('get data');
+	  //   	console.log(data);
+			//   refreshPost(data.reverse());
+			//   postText.value = '';
+			//   postImgItem.value = '';
+			//   postImgPreviewDiv.src = '';
+			// });
+			$.ajax({
+			  url: url,
+			  data: newPostParameter,
+			  type: 'POST',
+			  success: function(data) {
+					console.log('get data');
+		    	console.log(data);
+				  refreshPost(data.reverse());
+				  postText.value = '';
+				  postImgItem.value = '';
+				  postImgPreviewDiv.src = '';
+				},
+				cache: false
 			});
 	  }
 	  else {
@@ -68,9 +79,29 @@ function BoardBody({data, refreshPost}){
 	}
 	function previewImg(){
 		var postImgItem = document.getElementById('postImg');
+		var file = postImgItem.files[0];
+		var type = file.type;//檔案型別
+		var size = (file.size/ 1024).toPrecision(4); //檔案大小轉為KB
+	  var reader = new FileReader();
+	  console.log(type + size);
 
-		if(postImgItem.files && postImgItem.files[0]){
-	    var reader = new FileReader();
+	  if (postImgItem.accept.indexOf(type)==-1) {
+			alert("請選擇PNG或JPEG的圖片格式");
+			postImgItem.value="";
+			$("#previewImgDiv").attr('src', '');
+			return false;
+		}
+		else if (size > 50) { //圖檔需大於50KB會進行壓縮
+			reader.onload = function (e) {
+	      $("#previewImgDiv").attr('src', e.target.result);
+				dealImage(this.result,{width:400},function(base){
+	　　　　document.getElementById('previewImgDiv').setAttribute('src',base)
+				});
+	    	console.log('壓縮圖檔完成' + e.target.result.length);
+	    }
+	    reader.readAsDataURL(postImgItem.files[0]);
+		}
+		else if(postImgItem.files && postImgItem.files[0]){
 	    reader.onload = function (e) {
 	      $("#previewImgDiv").attr('src', e.target.result);
 	    }
@@ -79,6 +110,39 @@ function BoardBody({data, refreshPost}){
 	  else{
 	  	$("#previewImgDiv").attr('src', '');
 	  }
+	}
+	function dealImage(path, obj, callback){
+		var img = new Image();
+		img.src = path;
+		img.onload = function(){
+			var that = this;
+			// 預設按比例壓縮
+			var w = that.width,
+			h = that.height,
+			scale = w / h;
+			w = obj.width || w;
+			h = obj.height || (w / scale);
+			var quality = 0.7; // 預設圖片質量為0.7
+			//生成canvas
+			var canvas = document.createElement('canvas');
+			var ctx = canvas.getContext('2d');
+			// 建立屬性節點
+			var anw = document.createAttribute("width");
+			anw.nodeValue = w;
+			var anh = document.createAttribute("height");
+			anh.nodeValue = h;
+			canvas.setAttributeNode(anw);
+			canvas.setAttributeNode(anh);
+			ctx.drawImage(that, 0, 0, w, h);
+			// 影象質量
+			if(obj.quality && obj.quality <= 1 && obj.quality > 0){
+				quality = obj.quality;
+			}
+			// quality值越小，所繪製出的影象越模糊
+			var base64 = canvas.toDataURL('image/jpeg', quality );
+			// 回撥函式返回base64的值
+			callback(base64);
+		}
 	}
   return(
     <div>
