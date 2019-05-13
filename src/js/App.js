@@ -13,7 +13,7 @@ function App() {
         <div className="max_width">
           <div className="row">
             <div className="col-auto">
-              <img src="../../docs/img/logo.png" width="150px"/>
+              <img src="./img/logo.png" width="150px"/>
             </div>
             <div className="col">
                <ul className="row justify-content-md-end">
