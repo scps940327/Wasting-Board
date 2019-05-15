@@ -12,9 +12,6 @@ import FloatMenu from './FloatMenu.js';
 function BoardBody({data, refreshPost}){
 	const url = 'https://script.google.com/macros/s/AKfycbypgJ7I7ZIiwP_AEgPtGrTGVCgCRbMBZ4aT_jOL7-Ev8tVLqOsq/exec';
 	const recaptchaKey = '6Lc9RKMUAAAAANFfDb7omGiGF5mUvbiMttD4VByC';
-	var postTextItem = document.getElementById('postText');
-  var postImgItem = document.getElementById('postImg');
-  var postImgPreviewDiv = document.getElementById('previewImgDiv');
   const [boardFormState,setboardFormState] = useState(false);
 
 	useEffect(() => {
@@ -36,6 +33,9 @@ function BoardBody({data, refreshPost}){
 		});
 	}
 	function newData(){
+		var postTextItem = document.getElementById('postText');
+	  var postImgItem = document.getElementById('postImg');
+	  var postImgPreviewDiv = document.getElementById('previewImgDiv');
     var postImgItemData = '';
 
 		if(postTextItem.value){
@@ -124,6 +124,9 @@ function BoardBody({data, refreshPost}){
 	  }
 	}
 	function formReset(){
+		var postTextItem = document.getElementById('postText');
+	  var postImgItem = document.getElementById('postImg');
+	  var postImgPreviewDiv = document.getElementById('previewImgDiv');
 		postText.value = '';
 	  postImgItem.value = '';
 	  postImgPreviewDiv.src = '';
@@ -213,7 +216,6 @@ function BoardBody({data, refreshPost}){
 	}
 	function handleBoardForm(){
 		var state = !boardFormState;
-		console.log('click! ' + state);
 		setboardFormState(state);
 	}
   return(
