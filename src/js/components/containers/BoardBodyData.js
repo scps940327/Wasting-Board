@@ -5,8 +5,8 @@ import { refreshPost } from '../../actions/action.js';
 function mapStateToProps (state){
   return {
     data:{
-      memberName: state.Control.member.name,
-      postData: state.Control.postItem
+      memberName: state.Control.member.name || '',
+      postData: state.Control.postItem || ''
     }
   }
 }

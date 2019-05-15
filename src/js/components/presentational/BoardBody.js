@@ -127,6 +127,9 @@ function BoardBody({data, refreshPost}){
 		var postTextItem = document.getElementById('postText');
 	  var postImgItem = document.getElementById('postImg');
 	  var postImgPreviewDiv = document.getElementById('previewImgDiv');
+		
+		document.querySelector('body, html').removeAttribute("style");
+		setboardFormState(false);
 		postText.value = '';
 	  postImgItem.value = '';
 	  postImgPreviewDiv.src = '';
@@ -216,6 +219,12 @@ function BoardBody({data, refreshPost}){
 	}
 	function handleBoardForm(){
 		var state = !boardFormState;
+		if(state){
+			document.querySelector('body, html').setAttribute("style", "overflow: hidden;");
+		}
+		else{
+			document.querySelector('body, html').removeAttribute("style");
+		}
 		setboardFormState(state);
 	}
   return(

@@ -4114,22 +4114,35 @@ body {
   padding: 0;
   margin: 0; }
 
-.board_form {
+@media all and (min-width: 768px) {
+  .content-wrapper {
+    min-height: calc(100vh - 138px); } }
+
+@media all and (max-width: 767px) {
+  .content-wrapper {
+    min-height: calc(100vh - 120px); } }
+
+.board-form-wrapper {
+  height: 100vh;
+  top: 0;
+  left: 0;
+  width: 100vw;
   position: fixed;
   z-index: 3;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.5); }
-  @media all and (min-width: 768px) {
-    .board_form {
-      width: 80%;
-      left: 10%;
-      right: 10%;
-      top: calc(50vh - 164px); } }
-  @media all and (max-width: 767px) {
-    .board_form {
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh; } }
+  background-color: rgba(0, 0, 0, 0.7); }
+
+@media all and (min-width: 768px) {
+  .board-form {
+    margin: 0 10%; } }
+
+@media all and (max-width: 767px) {
+  .board-form {
+    position: fixed;
+    z-index: 3;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh; } }
 
 .float_menu {
   position: fixed;

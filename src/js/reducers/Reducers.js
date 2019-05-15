@@ -9,13 +9,7 @@ const initialData = {
   member:{
     name: '訪客'
   },
-  postItem: [
-    {
-      date: new Date(),
-      text: '初始貼文',
-      img: ''
-    },
-  ]
+  postItem: []
 }
 
 function Control(state = initialData, action){

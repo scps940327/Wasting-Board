@@ -11,17 +11,34 @@ body{
   margin: 0;
 }
 
-.board_form{
-  position: fixed;
-  z-index: 3;
-  box-shadow:  0 0 4px rgba(0,0,0,0.5);
+$content-height-md: 138px;
+$content-height-sm: 120px;
+.content-wrapper{
   @include md-width{
-    width: 80%;
-    left: 10%;
-    right: 10%; 
-    top: calc(50vh - 164px);
+    min-height: calc(100vh - #{$content-height-md});
   }
   @include sm-width{
+    min-height: calc(100vh - #{$content-height-sm});
+  }
+}
+
+.board-form-wrapper{
+  height: 100vh;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  position: fixed;
+  z-index: 3;
+  background-color: rgba(0,0,0,0.7);
+}
+
+.board-form{
+  @include md-width{
+    margin: 0 10%;
+  }
+  @include sm-width{
+    position: fixed;
+    z-index: 3;
     top: 0;
     left: 0;
     width: 100vw;
