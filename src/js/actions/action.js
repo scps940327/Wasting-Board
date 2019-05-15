@@ -13,3 +13,11 @@ export function refreshPost(data){
 		postArr: data
 	}
 }
+
+export function getFbMemberInfo(data){
+	return {
+		type: 'getFbMemberInfo',
+		name: data.name,
+		picture: data.picture.data.url
+	}
+}

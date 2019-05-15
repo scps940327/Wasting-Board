@@ -38,7 +38,17 @@ function BoardBody({data, refreshPost}){
 	  var postImgPreviewDiv = document.getElementById('previewImgDiv');
     var postImgItemData = '';
 
-		if(postTextItem.value){
+		if(postTextItem.value.legnth > 49999){
+			toast.error('你的廢文太長超過50000字了哦！', {
+				position: "top-right",
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true
+			});
+		}
+		else if(postTextItem.value){
 			if(postImgPreviewDiv.src.indexOf(location.href) == -1){
 				postImgItemData = postImgPreviewDiv.src.replace(',', '%');
 			}
@@ -229,7 +239,13 @@ function BoardBody({data, refreshPost}){
 	}
   return(
     <div>
-      <div className="text-right pb-3">您好，{data.memberName}</div>
+    	{(data.member.status.indexOf('new') === 0)
+      	? <div className="text-right pb-3">您好，{data.member.name}</div>
+      	: (<div className="text-right pb-3 row">
+      			<div className="col-auto">您好，{data.member.name}</div>
+      			<div className="rounded-circle" style={{height: '30px', width: '30px', background: 'url("' + data.member.picture + '") center / cover no-repeat',}} ></div>
+      		</div>)
+    	}
       { (boardFormState)
       	? <BoardForm recaptchaKey={recaptchaKey} checkRecapcha={checkRecapcha} previewImg={previewImg} newData={newData}/>
 		    : null 

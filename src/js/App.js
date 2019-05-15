@@ -6,7 +6,7 @@ import { Get } from 'react-axios';
 
 import BoardBodyData from './components/containers/BoardBodyData.js';
 import PolicyDetail from './components/presentational/PolicyDetail.js';
-import Login from './components/presentational/Login.js';
+import LoginData from './components/containers/LoginData.js';
 
 function App() {
   return (
@@ -69,7 +69,7 @@ function Home(){
 
 function LoginPage() {
   return (
-  <Login />
+  <LoginData />
   );
 }
 

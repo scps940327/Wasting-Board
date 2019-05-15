@@ -4144,6 +4144,10 @@ body {
     width: 100vw;
     height: 100vh; } }
 
+@media all and (min-width: 768px) {
+  .board-form textarea[name="postText"] {
+    height: 150px; } }
+
 .float_menu {
   position: fixed;
   z-index: 3;
@@ -4154,4 +4158,8 @@ body {
     width: 51px;
     font-size: 26px;
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.5); }
+
+.progress-bar {
+  height: 5px;
+  background-color: #777; }
 

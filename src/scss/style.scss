@@ -44,6 +44,12 @@ $content-height-sm: 120px;
     width: 100vw;
     height: 100vh;
   }
+
+  textarea[name="postText"]{
+    @include md-width{
+      height: 150px;
+    }
+  }
 }
 
 .float_menu{
@@ -58,4 +64,9 @@ $content-height-sm: 120px;
     font-size: 26px;
     box-shadow: 0 0 4px rgba(0,0,0,0.5);
   }
+}
+
+.progress-bar{
+  height: 5px;
+  background-color: #777;
 }

@@ -1,12 +1,8 @@
 import { combineReducers } from 'redux';
-import { PLUS, MINUS } from '../actions/action.js';
-
-// const initialData = {
-//   value : 0
-// }
 
 const initialData = {
   member:{
+    status: 'new',
     name: '訪客'
   },
   postItem: []
@@ -17,6 +13,14 @@ function Control(state = initialData, action){
     case 'refreshPost' :
       return Object.assign({},state,{
         postItem: action.postArr
+      });
+    case 'getFbMemberInfo' :
+      return Object.assign({},state,{
+        member: {
+          status: 'fb',
+          name: action.name,
+          picture: action.picture
+        }
       });
     default:
       return state;
