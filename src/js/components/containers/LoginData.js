@@ -5,7 +5,7 @@ import { getFbMemberInfo } from '../../actions/action.js';
 function mapStateToProps (state){
   return {
     data:{
-      memberName: state.Control.member.name || ''
+      member: state.Control.member
     }
   }
 }
