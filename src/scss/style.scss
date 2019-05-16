@@ -43,6 +43,7 @@ $content-height-sm: 120px;
     left: 0;
     width: 100vw;
     height: 100vh;
+    overflow-y: scroll;
   }
 
   textarea[name="postText"]{
