@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import BoardBody from '../presentational/BoardBody.js';
-import { refreshPost } from '../../actions/action.js';
+import { refreshPost, setFbMemberInfo } from '../../actions/action.js';
 
 function mapStateToProps (state){
   return {
@@ -15,6 +15,9 @@ function mapDispatchToProps(dispatch){
   return {
     refreshPost: (data) => {
       dispatch(refreshPost(data));
+    },
+    setFbMemberInfo: (data) => {
+      dispatch(setFbMemberInfo(data));
     },
   }
 }

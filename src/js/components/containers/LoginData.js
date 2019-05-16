@@ -4,18 +4,8 @@ import { getFbMemberInfo } from '../../actions/action.js';
 
 function mapStateToProps (state){
   return {
-    data:{
-      member: state.Control.member
-    }
+    data: state.Control.member
   }
 }
 
-function mapDispatchToProps(dispatch){
-  return {
-    getFbMemberInfo: (data) => {
-      dispatch(getFbMemberInfo(data));
-    },
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps)(Login);

@@ -6,10 +6,12 @@ import { Provider } from 'react-redux';
 import calculatorApp from './reducers/Reducers.js';
 import App from "./App.js";
 
-import {
-  male,
-  female
-} from './actions/action.js';
+import { CookiesProvider } from 'react-cookie';
+
+// import {
+//   male,
+//   female
+// } from './actions/action.js';
 import '../scss/style.scss'
 
 let store = createStore(calculatorApp);
@@ -27,7 +29,9 @@ var xhr = new XMLHttpRequest();
 
 ReactDOM.render(
     <Provider store = {store}>
+    	<CookiesProvider>
         <App />
+      </CookiesProvider>
     </Provider>,
     document.getElementById("root")
 );

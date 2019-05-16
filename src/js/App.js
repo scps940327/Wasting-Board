@@ -1,40 +1,18 @@
-import React from 'react';
+import React,{ PropTypes ,useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import { Get } from 'react-axios';
 
 import BoardBodyData from './components/containers/BoardBodyData.js';
 import PolicyDetail from './components/presentational/PolicyDetail.js';
 import LoginData from './components/containers/LoginData.js';
+import HeaderData from './components/containers/HeaderData.js';
 
 function App() {
   return (
     <div>
       <Router>
-        <div className="px-4 py-2 border-bottom">
-          <div className="max_width">
-            <div className="row align-items-center">
-              <div className="col-auto">
-                <img src="./img/logo.png" width="150px"/>
-              </div>
-              <div className="col">
-                 <ul className="row justify-content-end text-secondary" style={{fontSize: '20px'}}>
-                 		<li className="col-auto px-2">
-                      <Link to="/Wasting-Board/">
-                        <i className="fas fa-home"></i>
-                      </Link>
-                    </li>
-                    <li className="col-auto px-2">
-                      <Link to={'/Wasting-Board/Login'}>
-                        <i className="fas fa-user-circle"></i>
-                      </Link>
-                    </li>
-                 </ul>
-              </div>
-            </div>
-          </div>
-        </div>
+        <HeaderData />
         <div className="py-3 px-sm-4 px-3 content-wrapper">
           <div className="max_width">
             <Switch>
@@ -61,9 +39,7 @@ function App() {
 
 function Home(){
   return (
-    <div>
-      <BoardBodyData />
-    </div>
+    <BoardBodyData />
   );
 }
 

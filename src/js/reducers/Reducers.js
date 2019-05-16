@@ -14,7 +14,7 @@ function Control(state = initialData, action){
       return Object.assign({},state,{
         postItem: action.postArr
       });
-    case 'getFbMemberInfo' :
+    case 'setFbMemberInfo' :
       return Object.assign({},state,{
         member: {
           status: 'fb',

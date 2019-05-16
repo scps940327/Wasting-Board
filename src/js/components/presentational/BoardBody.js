@@ -8,11 +8,13 @@ import ReCAPTCHA from "react-google-recaptcha";
 import BoardWrapper from './BoardWrapper.js';
 import BoardForm from './BoardForm.js';
 import FloatMenu from './FloatMenu.js';
+import LoginModal from './LoginModal.js';
 
-function BoardBody({data, refreshPost}){
+function BoardBody({data, refreshPost, setFbMemberInfo}){
 	const url = 'https://script.google.com/macros/s/AKfycbypgJ7I7ZIiwP_AEgPtGrTGVCgCRbMBZ4aT_jOL7-Ev8tVLqOsq/exec';
 	const recaptchaKey = '6Lc9RKMUAAAAANFfDb7omGiGF5mUvbiMttD4VByC';
   const [boardFormState,setboardFormState] = useState(false);
+  const [loginModal, setLoginModal] = useState({show: false});
 
 	useEffect(() => {
    	getData();
@@ -228,22 +230,33 @@ function BoardBody({data, refreshPost}){
 		//console.log("Captcha value:", value);
 	}
 	function handleBoardForm(){
-		var state = !boardFormState;
-		if(state){
-			document.querySelector('body, html').setAttribute("style", "overflow: hidden;");
+		if(data.member.status.indexOf('new') === 0){
+			modalHandleClose();
 		}
 		else{
-			document.querySelector('body, html').removeAttribute("style");
+			var state = !boardFormState;
+			if(state){
+				document.querySelector('body, html').setAttribute("style", "overflow: hidden;");
+			}
+			else{
+				document.querySelector('body, html').removeAttribute("style");
+			}
+			setboardFormState(state);
 		}
-		setboardFormState(state);
 	}
+	function modalHandleClose(){
+    var state = !loginModal.show;
+    setLoginModal({show: state});
+  }
   return(
     <div>
     	{(data.member.status.indexOf('new') === 0)
       	? <div className="text-right pb-3">您好，{data.member.name}</div>
-      	: (<div className="text-right pb-3 row">
-      			<div className="col-auto">您好，{data.member.name}</div>
-      			<div className="rounded-circle" style={{height: '30px', width: '30px', background: 'url("' + data.member.picture + '") center / cover no-repeat',}} ></div>
+      	: (<div className="pb-3 row align-items-center justify-content-end">
+      			<div className="col text-right">您好，{data.member.name}</div>
+      			<div className="col-auto">
+      				<div className="rounded-circle" style={{height: '30px', width: '30px', background: 'url("' + data.member.picture + '") center / cover no-repeat',}} ></div>
+      			</div>
       		</div>)
     	}
       { (boardFormState)
@@ -253,6 +266,7 @@ function BoardBody({data, refreshPost}){
       <FloatMenu handleBoardForm = {handleBoardForm} state={boardFormState}/>
       <BoardWrapper data = {data.postData} />
 	    <ToastContainer />
+	    <LoginModal show={loginModal.show} modalHandleClose={modalHandleClose} setFbMemberInfo={setFbMemberInfo}/>
     </div>
   );
 }

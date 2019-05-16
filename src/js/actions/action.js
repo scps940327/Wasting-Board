@@ -14,9 +14,11 @@ export function refreshPost(data){
 	}
 }
 
-export function getFbMemberInfo(data){
+export function setFbMemberInfo(data){
+	console.log('action: ' + data.name + ', ' + data.picture.data.url);
+
 	return {
-		type: 'getFbMemberInfo',
+		type: 'setFbMemberInfo',
 		name: data.name,
 		picture: data.picture.data.url
 	}
