@@ -29,7 +29,7 @@ function Header({data, setFbMemberInfo}){
       <div className="max_width">
         <div className="row align-items-center">
           <div className="col-auto">
-            <Link to="/Wasting-Board/">
+            <Link to="/">
               <img src="./img/logo.png" width="150px"/>
             </Link>
           </div>
