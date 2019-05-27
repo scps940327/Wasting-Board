@@ -1,6 +1,5 @@
 import React,{ PropTypes ,useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import { Get } from 'react-axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ReCAPTCHA from "react-google-recaptcha";
@@ -11,17 +10,22 @@ import FloatMenu from './FloatMenu.js';
 import LoginModal from './LoginModal.js';
 
 function BoardBody({data, refreshPost, setFbMemberInfo}){
-	const url = 'https://script.google.com/macros/s/AKfycbypgJ7I7ZIiwP_AEgPtGrTGVCgCRbMBZ4aT_jOL7-Ev8tVLqOsq/exec';
+	const url = 'https://script.google.com/macros/s/AKfycbyxpju3Y9T6vRHiOl5p_ZSwGPIN_7QpBBriAkHGAytqS8SL0OI/exec';
 	const recaptchaKey = '6Lc9RKMUAAAAANFfDb7omGiGF5mUvbiMttD4VByC';
   const [boardFormState,setboardFormState] = useState(false);
   const [loginModal, setLoginModal] = useState({show: false});
+  const [hasMoreItem, sethasMoreItem] = useState(true);
+  const [nowPage, setNowPage] = useState(0);
 
 	useEffect(() => {
+		window.addEventListener('scroll', windowScrollHandler);
    	getData();
   }, []);
   function getData(){
+  	var loadPage = nowPage + 1;
 		var getPostParameter = {
-   		requestAction: 'getPost'
+   		requestAction: 'getPost',
+   		page: loadPage
    	}
 
 		$.ajax({
@@ -29,8 +33,18 @@ function BoardBody({data, refreshPost, setFbMemberInfo}){
 		  data: getPostParameter,
 		  success: function(data) {
 				console.log(data);
-				refreshPost(data.reverse());
-			  },
+				refreshPost(data);
+				setNowPage(loadPage);
+				if(data.length === 8){
+					sethasMoreItem(true);
+					console.log('has more items');
+				}
+				else{
+					sethasMoreItem(false);
+				}
+			 },
+			 error: function() {
+			 },
 			cache: false
 		});
 	}
@@ -96,7 +110,7 @@ function BoardBody({data, refreshPost, setFbMemberInfo}){
 			  type: 'POST',
 			  success: (data) => {
 					console.log('get data');
-				  refreshPost(data.reverse());
+				  refreshPost(data);
 
 				  toast.success('發廢文成功!', {
 						position: "top-right",
@@ -248,6 +262,20 @@ function BoardBody({data, refreshPost, setFbMemberInfo}){
     var state = !loginModal.show;
     setLoginModal({show: state});
   }
+  function windowScrollHandler(){
+  	var scrollTop = document.body.scrollTop; 
+		var offsetHeight = document.body.offsetHeight; 
+		var scrollHeight = document.body.scrollHeight;
+
+  	if(!hasMoreItem){
+  		console.log('not has more');
+        return;
+    }
+    if (scrollTop == scrollHeight - offsetHeight){
+    	console.log('loading...');
+    	//getData();
+    }
+  }
   return(
     <div>
     	{(data.member.status.indexOf('new') === 0)
@@ -264,7 +292,15 @@ function BoardBody({data, refreshPost, setFbMemberInfo}){
 		    : null 
 		  }
       <FloatMenu handleBoardForm = {handleBoardForm} state={boardFormState}/>
-      <BoardWrapper data = {data.postData} />
+      <BoardWrapper data = {data.postData} pageState={data.pageState}/>
+      {(hasMoreItem)
+      	? ((data.pageState == 'loaded')
+      		? (<div className="text-center py-3">
+	      			<button className="btn btn-light" onClick={getData}>載入更多</button>
+	      		</div>)
+      		: null)
+	      : <div className="text-center py-3">沒有更多廢文了，快去發廢文吧</div>
+	    }
 	    <ToastContainer />
 	    <LoginModal show={loginModal.show} modalHandleClose={modalHandleClose} setFbMemberInfo={setFbMemberInfo}/>
     </div>

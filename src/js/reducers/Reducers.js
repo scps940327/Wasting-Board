@@ -5,14 +5,21 @@ const initialData = {
     status: 'new',
     name: '訪客'
   },
-  postItem: []
+  postItem: [],
+  pageState: 'initial'
 }
 
 function Control(state = initialData, action){
   switch(action.type){
     case 'refreshPost' :
+      let nowPostItem = state.postItem.slice(0);
+
+      action.postArr.map((item) => {
+        nowPostItem.push(item);
+      })
       return Object.assign({},state,{
-        postItem: action.postArr
+        postItem: nowPostItem,
+        pageState: 'loaded'
       });
     case 'setFbMemberInfo' :
       return Object.assign({},state,{

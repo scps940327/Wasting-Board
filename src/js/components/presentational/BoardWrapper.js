@@ -1,13 +1,13 @@
 import React,{ PropTypes ,useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
-function BoardItem({data}){
+function BoardItem({data, style}){
 	var startDate = new Date(data.date);
 	var nowDate = new Date();
 	var progressBarWidthPercent = (1 - (nowDate - startDate)/(24*60*60*1000))*100;
 
 	return(
-		<div className="card post_item">
+		<div className="card post_item" style={style}>
 			<div className="shadow-sm">
 				<div>
 					{data.img
@@ -23,16 +23,18 @@ function BoardItem({data}){
 	);
 }
 
-function BoardWrapper({data}){
-	useEffect(() => {
-  }, []);
+function BoardWrapper({data, pageState}){
   return(
-    <div className="card-columns pb-4">
-    {data.length > 0 
-    	? (data.map((postItem, i) => 
-    		<BoardItem data ={postItem} key={'post_item_' + i} />)) 
-    	: '沒有貼文可以顯示'}
-    </div>
+  	<div>
+	    {data.length > 0 
+	    	? (<div className="card-columns pb-4">
+		    		{data.map((postItem, i) => 
+		    		<BoardItem data ={postItem} key={'post_item_' + i} />)}
+	    		</div>) 
+	    	: ((pageState == 'loaded') 
+	    			? '沒有貼文可以顯示'
+	    			: <div className="text-center text-secondary" style = {{fontSize: '30px'}}><i className="fas fa-spinner fa-pulse"></i></div>)}
+	  </div>
   );
 }
 

@@ -6,6 +6,7 @@ function mapStateToProps (state){
   return {
     data:{
       postData: state.Control.postItem || '',
+      pageState: state.Control.pageState,
       member: state.Control.member
     }
   }
