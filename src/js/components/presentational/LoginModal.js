@@ -2,7 +2,7 @@ import React,{ PropTypes ,useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { Modal, Button } from 'react-bootstrap';
 import { FacebookProvider, LoginButton} from 'react-facebook';
-
+import { useCookies } from 'react-cookie';
 import { ToastContainer, toast } from 'react-toastify';
 
 function LoginModal({show, modalHandleClose, setFbMemberInfo}){
@@ -16,9 +16,12 @@ function LoginModal({show, modalHandleClose, setFbMemberInfo}){
 			}
 		}
 	};
+	const loginBtnStyle = {width: '133px'}
+
+
 	function handleFbResponse(data){
-    console.log('modal: ' + data.profile);
-    setFbMemberInfo(data.profile);
+		var memberInfo = {name: data.name, picture: data.picture.data.url, status: 'fb'};
+    setFbMemberInfo(memberInfo);
     modalHandleClose();
   	toast.success('你可以開始發廢文了！', {
 			position: "top-right",
@@ -42,6 +45,19 @@ function LoginModal({show, modalHandleClose, setFbMemberInfo}){
 			draggable: true
 		});
   }
+  function visitorLogin(){
+  	var memberInfo = {name: '訪客', picture: '', status: 'visitor'};
+  	setFbMemberInfo(memberInfo);
+    modalHandleClose();
+  	toast.success('你可以開始發廢文了！', {
+			position: "top-right",
+			autoClose: 3000,
+			hideProgressBar: true,
+			closeOnClick: true,
+			pauseOnHover: true,
+			draggable: true
+		});
+  }
 	return(
 		<div>
 	    <Modal show={show} onHide={modalHandleClose} centered>
@@ -55,11 +71,13 @@ function LoginModal({show, modalHandleClose, setFbMemberInfo}){
 					        scope="email"
 					        onCompleted={handleFbResponse}
 					        onError={handleError}
-					        className="btn btn-primary"
+					        className="btn btn-blue"
+					        style={loginBtnStyle}
 					      >
 				        Facebook 登入
 				      </LoginButton>
 				    </FacebookProvider>
+				    <button onClick={visitorLogin} className="btn btn-secondary ml-3" style={loginBtnStyle}>訪客登入</button>
 				  </div>
 			  </Modal.Body>
 	    </Modal>

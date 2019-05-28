@@ -14,8 +14,8 @@ function mapStateToProps (state){
 
 function mapDispatchToProps(dispatch){
   return {
-    refreshPost: (data) => {
-      dispatch(refreshPost(data));
+    refreshPost: (data, dataType) => {
+      dispatch(refreshPost(data, dataType));
     },
     setFbMemberInfo: (data) => {
       dispatch(setFbMemberInfo(data));

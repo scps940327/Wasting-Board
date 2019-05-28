@@ -11,7 +11,7 @@ const initialData = {
 
 function Control(state = initialData, action){
   switch(action.type){
-    case 'refreshPost' :
+    case 'loadPost' :
       let nowPostItem = state.postItem.slice(0);
 
       action.postArr.map((item) => {
@@ -21,12 +21,20 @@ function Control(state = initialData, action){
         postItem: nowPostItem,
         pageState: 'loaded'
       });
+    case 'newPost' :
+      nowPostItem = state.postItem.slice(0);
+      nowPostItem.unshift(action.postArr);
+      console.log(nowPostItem);
+      return Object.assign({},state,{
+        postItem: nowPostItem,
+        pageState: 'loaded'
+      });
     case 'setFbMemberInfo' :
       return Object.assign({},state,{
         member: {
-          status: 'fb',
+          status: action.status,
           name: action.name,
-          picture: action.picture
+          picture: action.picture,
         }
       });
     default:

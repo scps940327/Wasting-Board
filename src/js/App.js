@@ -16,7 +16,7 @@ function App() {
         <div className="py-3 px-sm-4 px-3 content-wrapper">
           <div className="max_width">
             <Switch>
-              <Route exact path='/' component={Home} />
+              <Route exact path='/Wasting-Board' component={Home} />
               <Route exact path='/Wasting-Board/Login' component={LoginPage} />
               <Route exact path='/Wasting-Board/Policy' component={Policy} />
             </Switch>

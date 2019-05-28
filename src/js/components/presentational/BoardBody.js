@@ -10,12 +10,14 @@ import FloatMenu from './FloatMenu.js';
 import LoginModal from './LoginModal.js';
 
 function BoardBody({data, refreshPost, setFbMemberInfo}){
-	const url = 'https://script.google.com/macros/s/AKfycbyxpju3Y9T6vRHiOl5p_ZSwGPIN_7QpBBriAkHGAytqS8SL0OI/exec';
+	const url = 'https://script.google.com/macros/s/AKfycbxmykUcTSNSVPcGHg5R0u_w8mcH9JKEwG2e-ImEkoe91OF95uo/exec';
 	const recaptchaKey = '6Lc9RKMUAAAAANFfDb7omGiGF5mUvbiMttD4VByC';
+	const pagePostNum = 8;
   const [boardFormState,setboardFormState] = useState(false);
   const [loginModal, setLoginModal] = useState({show: false});
   const [hasMoreItem, sethasMoreItem] = useState(true);
   const [nowPage, setNowPage] = useState(0);
+  const [newPostNum, setNewPostNum] = useState(0);
 
 	useEffect(() => {
 		window.addEventListener('scroll', windowScrollHandler);
@@ -25,7 +27,8 @@ function BoardBody({data, refreshPost, setFbMemberInfo}){
   	var loadPage = nowPage + 1;
 		var getPostParameter = {
    		requestAction: 'getPost',
-   		page: loadPage
+      startItem: 1 + nowPage * pagePostNum + newPostNum,
+      endItem: loadPage * pagePostNum +newPostNum + 1
    	}
 
 		$.ajax({
@@ -37,7 +40,6 @@ function BoardBody({data, refreshPost, setFbMemberInfo}){
 				setNowPage(loadPage);
 				if(data.length === 8){
 					sethasMoreItem(true);
-					console.log('has more items');
 				}
 				else{
 					sethasMoreItem(false);
@@ -109,8 +111,10 @@ function BoardBody({data, refreshPost, setFbMemberInfo}){
 			  data: newPostParameter,
 			  type: 'POST',
 			  success: (data) => {
-					console.log('get data');
-				  refreshPost(data);
+				  refreshPost(data, 'new');
+
+				  let nowNewPostNum = newPostNum + 1;
+				  setNewPostNum(nowNewPostNum);
 
 				  toast.success('發廢文成功!', {
 						position: "top-right",
@@ -156,7 +160,6 @@ function BoardBody({data, refreshPost, setFbMemberInfo}){
 		
 		document.querySelector('body, html').removeAttribute("style");
 		setboardFormState(false);
-		postText.value = '';
 	  postImgItem.value = '';
 	  postImgPreviewDiv.src = '';
 		grecaptcha.reset();
@@ -268,27 +271,15 @@ function BoardBody({data, refreshPost, setFbMemberInfo}){
 		var scrollHeight = document.body.scrollHeight;
 
   	if(!hasMoreItem){
-  		console.log('not has more');
-        return;
+      return;
     }
     if (scrollTop == scrollHeight - offsetHeight){
-    	console.log('loading...');
-    	//getData();
     }
   }
   return(
     <div>
-    	{(data.member.status.indexOf('new') === 0)
-      	? <div className="text-right pb-3">您好，{data.member.name}</div>
-      	: (<div className="pb-3 row align-items-center justify-content-end">
-      			<div className="col text-right">您好，{data.member.name}</div>
-      			<div className="col-auto">
-      				<div className="rounded-circle" style={{height: '30px', width: '30px', background: 'url("' + data.member.picture + '") center / cover no-repeat',}} ></div>
-      			</div>
-      		</div>)
-    	}
       { (boardFormState)
-      	? <BoardForm recaptchaKey={recaptchaKey} checkRecapcha={checkRecapcha} previewImg={previewImg} newData={newData}/>
+      	? <BoardForm recaptchaKey={recaptchaKey} checkRecapcha={checkRecapcha} previewImg={previewImg} newData={newData} formReset={formReset}/>
 		    : null 
 		  }
       <FloatMenu handleBoardForm = {handleBoardForm} state={boardFormState}/>

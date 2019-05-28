@@ -25,31 +25,46 @@ function Header({data, setFbMemberInfo}){
   }
 
   return (
-    <div className="px-4 py-2 border-bottom">
-      <div className="max_width">
-        <div className="row align-items-center">
-          <div className="col-auto">
-            <Link to="/">
-              <img src="./img/logo.png" width="150px"/>
-            </Link>
-          </div>
-          <div className="col">
-             <ul className="row justify-content-end text-secondary">
-                <li className="col-auto px-2">
-                  {(data.status.indexOf('new') === 0)
-                    ? (<button type="button" className="btn btn-link p-0" onClick={modalHandleClose} style={{fontSize: '20px'}}>
-                        <i className="fas fa-user-circle"></i>
-                      </button>)
-                    : (<Link to="/Wasting-Board/Login">
-                        <i className="fas fa-user-circle" style={{fontSize: '20px'}}></i>
-                      </Link>)
-                  }
-                </li>
-             </ul>
+    <div>
+      <div className="px-4 py-2 border-bottom">
+        <div className="max_width">
+          <div className="row align-items-center">
+            <div className="col-auto">
+              <Link to="/Wasting-Board">
+                <img src="./img/logo.png" width="150px"/>
+              </Link>
+            </div>
+            <div className="col">
+               <ul className="row justify-content-end text-secondary">
+                  <li className="col-auto px-2">
+                    {(data.status.indexOf('new') === 0)
+                      ? (<button type="button" className="btn btn-link p-0" onClick={modalHandleClose} style={{fontSize: '20px'}}>
+                          <i className="fas fa-user-circle"></i>
+                        </button>)
+                      : (<Link to="/Wasting-Board/Login">
+                          <i className="fas fa-user-circle" style={{fontSize: '20px'}}></i>
+                        </Link>)
+                    }
+                  </li>
+               </ul>
+            </div>
           </div>
         </div>
       </div>
       <LoginModal show={loginModal.show} modalHandleClose={modalHandleClose} setFbMemberInfo={setFbMemberInfo}/>
+      <div className="pt-3 px-4">
+        <div className="max_width">
+          {(data.status.indexOf('new') === 0)
+            ? <div className="text-right pb-3">您好，歡迎登入帳戶</div>
+            : (<div className="pb-3 row align-items-center justify-content-end">
+                <div className="col text-right">您好，{data.name}</div>
+                <div className="col-auto">
+                  <div className="rounded-circle bg-secondary" style={{height: '30px', width: '30px', background: 'url("' + data.picture + '") center / cover no-repeat',}} ></div>
+                </div>
+              </div>)
+          }
+        </div>
+      </div>
     </div>
   )
 }
