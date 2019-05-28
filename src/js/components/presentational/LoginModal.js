@@ -66,6 +66,7 @@ function LoginModal({show, modalHandleClose, setFbMemberInfo}){
 	      </Modal.Header>
 	      <Modal.Body>
 	      	<div className="text-center">
+	      	<div className="py-3">使用訪客身分可以進行發文但無法使用帳戶功能</div>
 						<FacebookProvider appId="750233222045584">
 							<LoginButton
 					        scope="email"
@@ -81,7 +82,6 @@ function LoginModal({show, modalHandleClose, setFbMemberInfo}){
 				  </div>
 			  </Modal.Body>
 	    </Modal>
-	    <ToastContainer />
 	  </div>
 	)
 }

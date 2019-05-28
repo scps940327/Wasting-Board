@@ -12,7 +12,7 @@ body{
 }
 
 $content-height-md: 138px;
-$content-height-sm: 120px;
+$content-height-sm: 181px;
 .content-wrapper{
   @include md-width{
     min-height: calc(100vh - #{$content-height-md});

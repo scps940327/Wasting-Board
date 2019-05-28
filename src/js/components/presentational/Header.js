@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import { Modal, Button } from 'react-bootstrap';
 import { FacebookProvider, LoginButton} from 'react-facebook';
+import { ToastContainer, toast } from 'react-toastify';
 
 import LoginModal from './LoginModal.js';
 
@@ -26,6 +27,7 @@ function Header({data, setFbMemberInfo}){
 
   return (
     <div>
+      <ToastContainer />
       <div className="px-4 py-2 border-bottom">
         <div className="max_width">
           <div className="row align-items-center">
@@ -37,7 +39,7 @@ function Header({data, setFbMemberInfo}){
             <div className="col">
                <ul className="row justify-content-end text-secondary">
                   <li className="col-auto px-2">
-                    {(data.status.indexOf('new') === 0)
+                    {(data.status.indexOf('new') === 0 || data.status.indexOf('visitor') === 0)
                       ? (<button type="button" className="btn btn-link p-0" onClick={modalHandleClose} style={{fontSize: '20px'}}>
                           <i className="fas fa-user-circle"></i>
                         </button>)

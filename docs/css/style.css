@@ -4298,7 +4298,7 @@ body {
 
 @media all and (max-width: 767px) {
   .content-wrapper {
-    min-height: calc(100vh - 120px); } }
+    min-height: calc(100vh - 181px); } }
 
 .board-form-wrapper {
   height: 100vh;

@@ -292,7 +292,6 @@ function BoardBody({data, refreshPost, setFbMemberInfo}){
       		: null)
 	      : <div className="text-center py-3">沒有更多廢文了，快去發廢文吧</div>
 	    }
-	    <ToastContainer />
 	    <LoginModal show={loginModal.show} modalHandleClose={modalHandleClose} setFbMemberInfo={setFbMemberInfo}/>
     </div>
   );

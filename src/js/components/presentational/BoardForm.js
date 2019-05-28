@@ -22,7 +22,7 @@ function BoardForm({recaptchaKey, checkRecapcha, previewImg, newData, formReset}
 				      	<img src="" id="previewImgDiv" width="200px" className="pt-2"/>
 				      </div>
 				      <div className="row align-items-center">
-					      <div className="col-auto">
+					      <div className="col-sm-auto col-12">
 					      	<ReCAPTCHA
 				            style={{ display: "inline-block" }}
 				            theme="light"
@@ -31,7 +31,7 @@ function BoardForm({recaptchaKey, checkRecapcha, previewImg, newData, formReset}
 				            onChange={checkRecapcha}
 				          />
 					      </div>
-					      <div className="col">
+					      <div className="col-sm col-12">
 					      	<button className="btn btn-primary" type="button" onClick={newData}>送出新貼文</button>
 					      </div>
 					    </div>
