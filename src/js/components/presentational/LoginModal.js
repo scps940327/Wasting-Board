@@ -20,7 +20,7 @@ function LoginModal({show, modalHandleClose, setFbMemberInfo}){
 
 
 	function handleFbResponse(data){
-		var memberInfo = {name: data.name, picture: data.picture.data.url, status: 'fb'};
+		var memberInfo = {name: data.profile.name, picture: data.profile.picture.data.url, status: 'fb'};
     setFbMemberInfo(memberInfo);
     modalHandleClose();
   	toast.success('你可以開始發廢文了！', {
@@ -66,19 +66,17 @@ function LoginModal({show, modalHandleClose, setFbMemberInfo}){
 	      </Modal.Header>
 	      <Modal.Body>
 	      	<div className="text-center">
-	      	<div className="py-3">使用訪客身分可以進行發文但無法使用帳戶功能</div>
+	      	<div className="py-3">登入才能使用帳戶功能</div>
 						<FacebookProvider appId="750233222045584">
 							<LoginButton
 					        scope="email"
 					        onCompleted={handleFbResponse}
 					        onError={handleError}
 					        className="btn btn-blue"
-					        style={loginBtnStyle}
 					      >
 				        Facebook 登入
 				      </LoginButton>
 				    </FacebookProvider>
-				    <button onClick={visitorLogin} className="btn btn-secondary ml-3" style={loginBtnStyle}>訪客登入</button>
 				  </div>
 			  </Modal.Body>
 	    </Modal>

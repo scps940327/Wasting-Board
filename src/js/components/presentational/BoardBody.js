@@ -247,10 +247,10 @@ function BoardBody({data, refreshPost, setFbMemberInfo}){
 		//console.log("Captcha value:", value);
 	}
 	function handleBoardForm(){
-		if(data.member.status.indexOf('new') === 0){
-			modalHandleClose();
-		}
-		else{
+		// if(data.member.status.indexOf('new') === 0){
+		// 	modalHandleClose();
+		// }
+		// else{
 			var state = !boardFormState;
 			if(state){
 				document.querySelector('body, html').setAttribute("style", "overflow: hidden;");
@@ -259,7 +259,7 @@ function BoardBody({data, refreshPost, setFbMemberInfo}){
 				document.querySelector('body, html').removeAttribute("style");
 			}
 			setboardFormState(state);
-		}
+		//}
 	}
 	function modalHandleClose(){
     var state = !loginModal.show;
