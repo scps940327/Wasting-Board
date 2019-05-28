@@ -66,14 +66,14 @@ function BoardBody({data, refreshPost, setFbMemberInfo}){
 				draggable: true
 			});
 		}
-		else if(postTextItem.value){
+		else if(postTextItem.value.trim()){
 			if(postImgPreviewDiv.src.indexOf(location.href) == -1){
 				postImgItemData = postImgPreviewDiv.src.replace(',', '%');
 			}
 			var newPostParameter = {
 		      requestAction: 'newPost',
 		      dataTime: new Date(),
-		      data: postTextItem.value,
+		      data: postTextItem.value.trim(),
 		      dataImg: postImgItemData,
 		      insertType: 'bottom',
 		      row: 1,

@@ -39,7 +39,7 @@ function Login({data}){
 		}
 
 		var contactText = document.getElementById('contactFormTextarea');
-		if(!contactText.value){
+		if(!contactText.value.trim()){
 			contactText.focus();
 			toast.error('怎麼是空白的呢？', {
 				position: "top-right",
@@ -68,7 +68,7 @@ function Login({data}){
 		var getParameter = {
 			dataTime: new Date(),
       user: data.name,
-      text: contactText.value
+      text: contactText.value.trim()
 		}
 
 		$.ajax({
