@@ -1,4 +1,4 @@
-import React,{ PropTypes ,useState, useEffect } from 'react';
+import React,{ useCallback ,useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -23,7 +23,8 @@ function BoardBody({data, refreshPost, setFbMemberInfo}){
 		window.addEventListener('scroll', windowScrollHandler);
    	getData();
   }, []);
-  function getData(){
+
+  const getData = useCallback(() => {
   	var loadPage = nowPage + 1;
 		var getPostParameter = {
    		requestAction: 'getPost',
@@ -35,7 +36,6 @@ function BoardBody({data, refreshPost, setFbMemberInfo}){
 		  url: url,
 		  data: getPostParameter,
 		  success: function(data) {
-				console.log(data);
 				refreshPost(data);
 				setNowPage(loadPage);
 				if(data.length === 8){
@@ -44,12 +44,22 @@ function BoardBody({data, refreshPost, setFbMemberInfo}){
 				else{
 					sethasMoreItem(false);
 				}
-			 },
-			 error: function() {
-			 },
+			},
+			error: (xhr, ajaxOptions, thrownError) => {
+				toast.error('貌似有什麼出錯了？', {
+					position: "top-right",
+					autoClose: 5000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true
+				});
+				console.log(xhr.responseText + thrownError);
+			},
 			cache: false
 		});
-	}
+	}, [])
+
 	function newData(){
 		var postTextItem = document.getElementById('postText');
 	  var postImgItem = document.getElementById('postImg');
