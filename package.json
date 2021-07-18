@@ -32,7 +32,7 @@
     "webpack-dev-server": "^3.3.1"
   },
   "dependencies": {
-    "axios": "^0.15.0",
+    "axios": "^0.21.1",
     "jquery": "^3.5.0",
     "react": "^16.8.6",
     "react-axios": "^2.0.3",
